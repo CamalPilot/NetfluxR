@@ -1,0 +1,23 @@
+@import "./../../Sass/Variables.scss";
+@import "./../../Sass/Variables.scss";
+
+.menu{
+    &__list{
+        display: flex;
+        gap:2rem;
+        align-items: center;
+
+        li{
+            a{
+                font-size: 1.8rem;
+                padding: 1rem;
+                color: var(--bs-white);
+                transition: all .3s;
+                &:hover{
+                    background-color: var(--bs-gray);
+                    border-radius: 2rem;
+                }
+            }
+        }
+    }
+}

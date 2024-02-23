@@ -1,0 +1,52 @@
+@import "./../../Sass/Variables.scss";
+@import "./../../Sass/Variables.scss";
+
+.slider {
+    display: flex !important;
+    justify-content: space-between;
+    width: 65rem;
+
+
+    &__img {
+
+        margin-top: 10rem;
+        height: 50rem;
+        position: relative;
+        overflow: hidden;
+
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        &__about{
+            color: var(--bs-white);
+            position: absolute;
+            bottom: 0;
+            left: 0rem;
+            width: 40%;
+            background: linear-gradient(45deg, black, transparent);;
+
+            h2 {
+                font-size: 3rem;
+                margin-bottom: 1.5rem;
+            }
+            p{
+                font-size: 1.6rem;
+                margin-bottom: 2rem;
+            }
+        }
+        &__raiting{
+            position: absolute;
+            bottom: 0;
+            color: aliceblue;
+        }
+
+    
+    }
+    
+}

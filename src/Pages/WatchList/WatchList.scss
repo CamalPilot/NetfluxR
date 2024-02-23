@@ -1,0 +1,15 @@
+@import '../../Sass/Variables.scss';
+@import '../../Sass/Mixin.scss';
+
+.watchlist{
+    padding-top: 10rem;
+
+    &__heading{
+        color: var(--bs-white);
+    }
+    &__movies{
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+}

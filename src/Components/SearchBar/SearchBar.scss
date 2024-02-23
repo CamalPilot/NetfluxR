@@ -1,0 +1,19 @@
+@import "./../../Sass/Variables.scss";
+@import "./../../Sass/Mixin.scss";
+
+.search{
+    input {
+        width: 25rem;
+        height: 3rem;
+        outline: none;
+        position: relative;
+        padding-right: 3rem;
+        border-radius: 1.5rem;
+        padding-left: 2rem;
+    }
+    &__icon {
+        position: absolute;
+        right: 31.5rem;
+        top: 3.5rem;
+    }
+}

@@ -1,0 +1,57 @@
+@import "./../../Sass/Variables.scss";
+@import "./../../Sass/Variables.scss";
+
+.detail{
+        padding-top: 10rem;
+        height: 100vh;
+    &__heading {
+        margin-bottom: 1rem;
+        color: var(--bs-white);
+        span {
+            font-size: 1.4rem;
+            opacity: .7;
+        }    }
+    &__content {
+        margin-top: 1rem;
+        display: flex;
+        gap: 3rem;
+        
+        &__img{
+            // width: 35rem;
+            // height: 30rem;
+            img{
+                // width: 100%;
+                height: auto;
+            }
+        }
+        &__about{
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            font-size: 1.8rem;
+            color: var(--bs-white);
+
+            &__raiting{
+                font-size: 1.8rem;
+                margin-top: 2rem;
+                display: flex;
+                align-items: center;
+                gap: 5rem;
+                &-imdb{
+                    h5{
+                        color: var(--bs-white);
+                        opacity: .5;
+                        font-size: 1.6rem;
+                    }
+
+                    h4{
+                        margin-top: 1rem;
+                        display: flex;
+                        gap: 1rem;
+                        color: var(--bs-white);
+                    }
+                }
+            }
+        }
+    }
+}
