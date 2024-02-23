@@ -9,6 +9,7 @@ import DetailMovie from './Pages/DetailMovie/DetailMovie'
 import Topraiting from './Pages/Top-raiting/Topraiting'
 import AllMovies from './Pages/AllMovies/AllMovies'
 import WatchList from './Pages/WatchList/WatchList'
+import { API_URL } from './services/movie'
 
 
 
@@ -31,7 +32,7 @@ export function App() {
   useEffect(() => {
    async function fetchMovies(){
       try{
-        const response  = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=d2ce36e0e5add9254fab39492a1a1a8a`)
+        const response  = await axios.get(`${API_URL}movie/popular?api_key=${import.meta.env.VITE_API_KEY}`)
       const allMovies = response.data.results;
       const randomMovies = getRandomMovies(allMovies, 6)
       setMovies(randomMovies)
@@ -45,7 +46,7 @@ export function App() {
   
     async function detailMovies(id){
       try{
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=d2ce36e0e5add9254fab39492a1a1a8a`);
+        const response = await axios.get(`${API_URL}movie/${id}?api_key=${import.meta.env.VITE_API_KEY}`);
         setSelectItemID(response.data)
       }catch(error){
         console.error('No Details', error)
@@ -56,7 +57,7 @@ export function App() {
     useEffect(() => {
       async function topRaiting(){
         try{
-          const response = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=d2ce36e0e5add9254fab39492a1a1a8a`);
+          const response = await axios.get(`${API_URL}movie/top_rated?api_key=${import.meta.env.VITE_API_KEY}`);
          setRaitingMovies(response.data.results)
         }catch(error){
           console.error('Error Top Rating', error)
@@ -67,7 +68,7 @@ export function App() {
     useEffect(() => {
       async function allMovies(){
         try{
-          const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=d2ce36e0e5add9254fab39492a1a1a8a`);
+          const response = await axios.get(`${API_URL}discover/movie?api_key=${import.meta.env.VITE_API_KEY}`);
          setAllMovies(response.data.results)
         }catch(error){
           console.error('Movie not found', error)
@@ -78,7 +79,7 @@ export function App() {
    
       async function searchMovie(){
         try{
-          const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=d2ce36e0e5add9254fab39492a1a1a8a&query=${search}`);
+          const response = await axios.get(`${API_URL}search/movie?api_key=${import.meta.env.VITE_API_KEY}&query=${search}`);
          setAllMovies(response.data.results)
         }catch(error){
           console.error('Search Error...', error)
