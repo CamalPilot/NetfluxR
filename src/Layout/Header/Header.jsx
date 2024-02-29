@@ -9,8 +9,14 @@ import { AiFillFolderAdd } from "react-icons/ai";
 
 import "./Header.scss";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearch } from "../../Redux/movieSlice";
 
-const Header = ({search, setSearch, searchMovie, watchCount}) => {
+
+const Header = ({searchMovie}) => {
+  const {search} = useSelector(state => state.movies)
+  const {watchCount} = useSelector(state => state.movies)
+  const dispatch = useDispatch()
   return (
     <div className="headerfix">
       <div className="container header">
@@ -28,7 +34,7 @@ const Header = ({search, setSearch, searchMovie, watchCount}) => {
             <CiSearch className="header__end__search__icon" />
           </div> */}
           <form className="header__end__search">
-          <input type="text" placeholder="search" value={search} onChange={(e)=>setSearch(e.target.value)}/>
+          <input type="text" placeholder="search" value={search} onChange={(e)=>dispatch(setSearch(e.target.value))}/>
           <Link to="/All-movies"><button className="header__end__search__icon" type="submit" onClick={searchMovie}><CiSearch className="search__icon" /></button></Link>
           </form>
 

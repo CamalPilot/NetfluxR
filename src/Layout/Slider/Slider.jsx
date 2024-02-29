@@ -5,6 +5,7 @@ import React from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import RaitingStar from "../../UI/RaitingStar/RaitingStar";
+import { useSelector } from "react-redux";
 
 
 
@@ -12,7 +13,8 @@ import RaitingStar from "../../UI/RaitingStar/RaitingStar";
 
 
 
-export default function SimpleSlider({movies}) {
+export default function SimpleSlider() {
+  const {movies} = useSelector(state => state.movies)
   var settings = {
     dots: true,
     infinite: true,

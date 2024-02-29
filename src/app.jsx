@@ -10,6 +10,8 @@ import Topraiting from './Pages/Top-raiting/Topraiting'
 import AllMovies from './Pages/AllMovies/AllMovies'
 import WatchList from './Pages/WatchList/WatchList'
 import { API_URL } from './services/movie'
+import { useDispatch, useSelector } from 'react-redux'
+import { setAllMovies, setMovies, setRaitingMovies, setSelectItemID, setWatchCount, setWatchList } from './Redux/movieSlice'
 
 
 
@@ -17,17 +19,24 @@ import { API_URL } from './services/movie'
 
 export function App() {
 
-  const [movies, setMovies] = useState([])
-  const [selectItemID, setSelectItemID] = useState(null)
-  const [raitingMovies, setRaitingMovies] = useState([])
-  const [search, setSearch] = useState([]);
-  const [allMovies, setAllMovies] = useState([]);
-  const [watchCount, setWatchCount] = useState(0)
-  const [watchList, setWatchList] = useState([]);
+  // const [movies, setMovies] = useState([])
+  // const [allMovies, setAllMovies] = useState([]);
+  // const [raitingMovies, setRaitingMovies] = useState([])
+  // const [search, setSearch] = useState([]);
+  // const [watchList, setWatchList] = useState([]);
+  // const [selectItemID, setSelectItemID] = useState(null)
+  // const [watchCount, setWatchCount] = useState(0)
 
   // const [openModal, setOpenModal] = useState(false);
   // const [filteredData, setFilteredData] = useState([]);
 
+  // const {movies} = useSelector(state => state.movies)
+  // const {allMovies} = useSelector(state => state.movies)
+  // const {raitingMovies} = useSelector(state => state.movies)
+  const {search} = useSelector(state => state.movies)
+  const {watchList} = useSelector(state => state.movies)
+  const {watchCount} = useSelector(state => state.movies)
+  const dispatch = useDispatch()
 
   useEffect(() => {
    async function fetchMovies(){
@@ -35,7 +44,7 @@ export function App() {
         const response  = await axios.get(`${API_URL}movie/popular?api_key=${import.meta.env.VITE_API_KEY}`)
       const allMovies = response.data.results;
       const randomMovies = getRandomMovies(allMovies, 6)
-      setMovies(randomMovies)
+      dispatch(setMovies(randomMovies))
       }catch (error) {
         console.error('Error Fetching movies', error)
       }
@@ -47,18 +56,18 @@ export function App() {
     async function detailMovies(id){
       try{
         const response = await axios.get(`${API_URL}movie/${id}?api_key=${import.meta.env.VITE_API_KEY}`);
-        setSelectItemID(response.data)
+        dispatch(setSelectItemID(response.data))
       }catch(error){
         console.error('No Details', error)
       }
 
     }
-    // detailMovies()
+    
     useEffect(() => {
       async function topRaiting(){
         try{
           const response = await axios.get(`${API_URL}movie/top_rated?api_key=${import.meta.env.VITE_API_KEY}`);
-         setRaitingMovies(response.data.results)
+         dispatch(setRaitingMovies(response.data.results))
         }catch(error){
           console.error('Error Top Rating', error)
         }
@@ -69,7 +78,7 @@ export function App() {
       async function allMovies(){
         try{
           const response = await axios.get(`${API_URL}discover/movie?api_key=${import.meta.env.VITE_API_KEY}`);
-         setAllMovies(response.data.results)
+         dispatch(setAllMovies(response.data.results))
         }catch(error){
           console.error('Movie not found', error)
         }
@@ -80,7 +89,7 @@ export function App() {
       async function searchMovie(){
         try{
           const response = await axios.get(`${API_URL}search/movie?api_key=${import.meta.env.VITE_API_KEY}&query=${search}`);
-         setAllMovies(response.data.results)
+         dispatch(setAllMovies(response.data.results))
         }catch(error){
           console.error('Search Error...', error)
         }
@@ -94,23 +103,23 @@ export function App() {
     
     const addWatchList = function (movie){
       if(watchList.includes(movie)){
-        setWatchList(watchList.filter((item) => item !== movie));
-        setWatchCount(watchCount - 1)
+        dispatch(setWatchList(watchList.filter((item) => item !== movie)));
+        dispatch(setWatchCount(watchCount - 1))
       }else{
-        setWatchList([...watchList, movie])
-        setWatchCount(watchCount +1)
+        dispatch(setWatchList([...watchList, movie]))
+        dispatch(setWatchCount(watchCount +1))
       }
     }
 
   return (
     <BrowserRouter>
     <Routes>
-      <Route element={<MainLayout search={search} setSearch={setSearch} searchMovie={searchMovie} watchCount={watchCount} />}>
-        <Route path='/'element={<Home movies = {movies} detailMovies={detailMovies} addWatchList={addWatchList} watchList={watchList}/>}/>
-        <Route path='/All-movies'element={<AllMovies allMovies={allMovies} detailMovies={detailMovies} search={search} addWatchList={addWatchList} watchList={watchList}/>}/>
-        <Route path='/:id'element={<DetailMovie selectItemID={selectItemID}/>}/>
-        <Route path='/Top-raiting'element={<Topraiting raitingMovies={raitingMovies} detailMovies={detailMovies} addWatchList={addWatchList} watchList={watchList}/>}/>
-        <Route path='/Watchlist' element={<WatchList watchList={watchList} detailMovies={detailMovies} addWatchList={addWatchList}/>}/>
+      <Route element={<MainLayout  searchMovie={searchMovie}/>}>
+        <Route path='/'element={<Home  detailMovies={detailMovies} addWatchList={addWatchList} />}/>
+        <Route path='/All-movies'element={<AllMovies  detailMovies={detailMovies} addWatchList={addWatchList}/>}/>
+        <Route path='/:id'element={<DetailMovie />}/>
+        <Route path='/Top-raiting'element={<Topraiting  detailMovies={detailMovies} addWatchList={addWatchList} />}/>
+        <Route path='/Watchlist' element={<WatchList  detailMovies={detailMovies} addWatchList={addWatchList}/>}/>
 
 
       </Route>

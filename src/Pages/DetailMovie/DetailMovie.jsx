@@ -4,8 +4,10 @@ import RaitingStar from "../../UI/RaitingStar/RaitingStar";
 import { IoIosStarOutline } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import Modal from '../../UI/Modal/Modal';
+import { useSelector } from 'react-redux';
 
-const DetailMovie = ({selectItemID}) => {
+const DetailMovie = () => {
+    const {selectItemID} = useSelector(state => state.movies)
   return (
     <div className='detail container'>
         <div className="detail__heading">
@@ -26,10 +28,10 @@ const DetailMovie = ({selectItemID}) => {
                         <h5>IMDB raiting</h5>
                         <Link><h4>{typeof selectItemID?.vote_average === 'number' ? selectItemID?.vote_average.toFixed(1) : ''} <span style={{opacity: '0.5'}}>/10</span> <RaitingStar style={{ fill: "gold", cursor: "pointer" }} /></h4></Link>
                     </div>
-                    <div className='detail__content__about__raiting-imdb'>
+                    {/* <div className='detail__content__about__raiting-imdb'>
                         <h5>Your raiting</h5>
                         <Link onClick={() => <Modal/>}><h4 style={{ color: "#5199EF"}}><IoIosStarOutline style={{ fill: "#5199EF", cursor: "pointer" }}/> Rate</h4></Link>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>

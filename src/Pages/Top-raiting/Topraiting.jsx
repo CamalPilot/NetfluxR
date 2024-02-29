@@ -1,8 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import MovieItem from '../../Components/MovieItem/MovieItem'
 import './Topraiting.scss'
 
-const Topraiting = ({raitingMovies, detailMovies, addWatchList, watchList}) => {
+const Topraiting = ({detailMovies, addWatchList}) => {
+    const {raitingMovies} = useSelector(state => state.movies)
     if (!Array.isArray(raitingMovies)) {
         return null;
       }
@@ -12,7 +14,7 @@ const Topraiting = ({raitingMovies, detailMovies, addWatchList, watchList}) => {
         <div className='rating__movies'>
             {
                 raitingMovies.map((movie) => (
-                    <MovieItem key={movie.id} movie={movie} detailMovies = {detailMovies} addWatchList={addWatchList} watchList={watchList}/>
+                    <MovieItem key={movie.id} movie={movie} detailMovies = {detailMovies} addWatchList={addWatchList}/>
                 ))
             }
             

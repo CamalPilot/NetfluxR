@@ -2,10 +2,10 @@ import React from "react";
 import { Outlet } from "react-router";
 import Header from "../Header/Header";
 
-const MainLayout = ({search, setSearch, searchMovie, watchCount}) => {
+const MainLayout = ({searchMovie}) => {
   return (
     <>
-      <Header search={search} setSearch={setSearch} searchMovie={searchMovie} watchCount={watchCount}/>
+      <Header  searchMovie={searchMovie}/>
       <Outlet/>
     </>
   );

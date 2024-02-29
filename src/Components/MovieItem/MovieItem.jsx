@@ -9,13 +9,23 @@ import { FaCheck } from "react-icons/fa6";
 import Button from "../../UI/Button/Button";
 import { FaPlus } from "react-icons/fa6";
 import Modal from "../../UI/Modal/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { setHover, setOpenModal, setRating, setYourRate } from "../../Redux/movieSlice";
 
-const MovieItem = ({movie, detailMovies, addWatchList, watchList = []}) => {
+const MovieItem = ({movie, detailMovies, addWatchList}) => {
+
+  const dispatch = useDispatch();
+
+  const {watchList} = useSelector(state => state.movies);
+  const {rating} = useSelector(state => state.movies);
+  const {hover} = useSelector(state => state.movies)
+  // const {yourRate} = useSelector(state => state.movies);
+  // const {openModal} = useSelector(state => state.movies);
 
   const [openModal, setOpenModal] = useState(false);
-  const [rating, setRating] = useState(0)
-  const [hover, setHover] = useState(null)
   const [yourRate, setYourRate] = useState(0)
+  // const [rating, setRating] = useState(0)
+  // const [hover, setHover] = useState(null)
 
   const rateHandle = function(){
     setYourRate(rating)
@@ -44,7 +54,11 @@ const MovieItem = ({movie, detailMovies, addWatchList, watchList = []}) => {
 
               </span>
               <Modal className="movie__item__detail__raiting__modal" isOpen={openModal} onClose={() => setOpenModal(false)}>
-                <div className="movie__item__detail__raiting__modal__count" style={{transform: rating !== 0 ? 'scale(1.5)' : 'none', transition:'all 1s'}}><RaitingStar style={{ fill: "#5199EF", cursor: "pointer" , fontSize:'10rem', position:'relative'}}/><span>{rating}</span></div>
+                <div className="movie__item__detail__raiting__modal__count" 
+                  style={{transform: rating !== 0 ? 'scale(1.5)' : 'none', transition:'all 1s'}}>
+                  <RaitingStar style={{ fill: "#5199EF", cursor: "pointer" , fontSize:'10rem', position:'relative'}}/>
+                  <span>{rating}</span>
+                </div>
                 <h5 className="movie__item__detail__raiting__modal__heading">Rate this</h5>
                 <h2 className="movie__item__detail__raiting__modal__title">{movie?.title}</h2>
                 <div className="movie__item__detail__raiting__modal__stars">
@@ -52,13 +66,13 @@ const MovieItem = ({movie, detailMovies, addWatchList, watchList = []}) => {
                     const currentRating = index + 1
                     return( 
                       <label>
-                        <input type="radio" name="rating" value={currentRating} onClick={()=> setRating(currentRating)} />
+                        <input type="radio" name="rating" value={currentRating} onClick={()=> dispatch(setRating(currentRating))} />
                         <FaStar 
                         className="star"
                         size={30}
                         color={currentRating <= (hover || rating) ? '#5199EF' : '#FFF'}
-                        onMouseEnter={() => setHover(currentRating)}
-                        onMouseLeave={() => setHover(null)}
+                        onMouseEnter={() => dispatch(setHover(currentRating))}
+                        onMouseLeave={() => dispatch(setHover(null))}
                         />
                         
                       </label>

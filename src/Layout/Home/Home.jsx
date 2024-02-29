@@ -6,12 +6,12 @@ import PopularMovies from '../PopularMovies/PopularMovies'
 import SimpleSlider from '../Slider/Slider'
 import './Home.scss'
 
-const Home = ({movies, detailMovies, addWatchList, watchList}) => {
+const Home = ({ detailMovies, addWatchList}) => {
   return (
     <div className='home'>
         {/* <Main/> */}
-        <SimpleSlider movies={movies}/>
-        <PopularMovies movies = {movies} detailMovies = {detailMovies} addWatchList={addWatchList} watchList={watchList} />
+        <SimpleSlider/>
+        <PopularMovies  detailMovies = {detailMovies} addWatchList={addWatchList} />
     </div>
   )
 }
