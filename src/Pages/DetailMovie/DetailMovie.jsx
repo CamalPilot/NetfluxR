@@ -1,15 +1,32 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './DetailMovie.scss'
 import RaitingStar from "../../UI/RaitingStar/RaitingStar";
 import { IoIosStarOutline } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import Modal from '../../UI/Modal/Modal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectItemID, setWatchCount, setWatchList } from '../../Redux/movieSlice';
+import Loading from '../../UI/Loading/Loading';
 
 const DetailMovie = () => {
+
+    const {isLoading} = useSelector(state => state.movies)
     const {selectItemID} = useSelector(state => state.movies)
+    const dispatch = useDispatch()
+    useEffect(() => {
+      const storedWatchList = JSON.parse(localStorage.getItem('watchList')) || [];
+      dispatch(setWatchList(storedWatchList));
+      dispatch(setWatchCount(storedWatchList.length));
+      const storedSelectItemID = JSON.parse(localStorage.getItem('selectItemID'));
+    if (storedSelectItemID) {
+      dispatch(setSelectItemID(storedSelectItemID));
+    }
+    
+    }, [dispatch]);
   return (
     <div className='detail container'>
+        {isLoading ? <Loading/> : 
+        <>
         <div className="detail__heading">
             <h2>{selectItemID?.title}</h2>
             <span> •  {selectItemID?.runtime} min</span>
@@ -37,6 +54,8 @@ const DetailMovie = () => {
             </div>
 
         </div>
+        </>
+}
     </div>
   )
 }

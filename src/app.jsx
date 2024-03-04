@@ -11,7 +11,7 @@ import AllMovies from './Pages/AllMovies/AllMovies'
 import WatchList from './Pages/WatchList/WatchList'
 import { API_URL } from './services/movie'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAllMovies, setMovies, setRaitingMovies, setSelectItemID, setWatchCount, setWatchList } from './Redux/movieSlice'
+import { setAllMovies, setIsLoading, setMovies, setRaitingMovies, setSelectItemID, setWatchCount, setWatchList } from './Redux/movieSlice'
 
 
 
@@ -33,6 +33,8 @@ export function App() {
   // const {movies} = useSelector(state => state.movies)
   // const {allMovies} = useSelector(state => state.movies)
   // const {raitingMovies} = useSelector(state => state.movies)
+  // const [isLoading, setIsloading] = useState(false)
+
   const {search} = useSelector(state => state.movies)
   const {watchList} = useSelector(state => state.movies)
   const {watchCount} = useSelector(state => state.movies)
@@ -41,22 +43,26 @@ export function App() {
   useEffect(() => {
    async function fetchMovies(){
       try{
+        dispatch(setIsLoading(true))
         const response  = await axios.get(`${API_URL}movie/popular?api_key=${import.meta.env.VITE_API_KEY}`)
-      const allMovies = response.data.results;
-      const randomMovies = getRandomMovies(allMovies, 6)
-      dispatch(setMovies(randomMovies))
+        const allMovies = response.data.results;
+        const randomMovies = getRandomMovies(allMovies, 6)
+        dispatch(setMovies(randomMovies))
+        dispatch(setIsLoading(false))
       }catch (error) {
         console.error('Error Fetching movies', error)
       }
     }
     fetchMovies()
-  }, [])
+  }, [dispatch])
 
   
     async function detailMovies(id){
       try{
+        dispatch(setIsLoading(true))
         const response = await axios.get(`${API_URL}movie/${id}?api_key=${import.meta.env.VITE_API_KEY}`);
         dispatch(setSelectItemID(response.data))
+        dispatch(setIsLoading(false))
       }catch(error){
         console.error('No Details', error)
       }
@@ -66,8 +72,10 @@ export function App() {
     useEffect(() => {
       async function topRaiting(){
         try{
+          dispatch(setIsLoading(true))
           const response = await axios.get(`${API_URL}movie/top_rated?api_key=${import.meta.env.VITE_API_KEY}`);
          dispatch(setRaitingMovies(response.data.results))
+         dispatch(setIsLoading(false))
         }catch(error){
           console.error('Error Top Rating', error)
         }
@@ -77,8 +85,10 @@ export function App() {
     useEffect(() => {
       async function allMovies(){
         try{
+          dispatch(setIsLoading(true));
           const response = await axios.get(`${API_URL}discover/movie?api_key=${import.meta.env.VITE_API_KEY}`);
          dispatch(setAllMovies(response.data.results))
+         dispatch(setIsLoading(false))
         }catch(error){
           console.error('Movie not found', error)
         }
@@ -102,11 +112,16 @@ export function App() {
     }
     
     const addWatchList = function (movie){
-      if(watchList.includes(movie)){
-        dispatch(setWatchList(watchList.filter((item) => item !== movie)));
+      const isMovieInWatchList = watchList.some(item => item.id === movie.id);
+      if(isMovieInWatchList){
+        const updatedWatchList = watchList.filter(item => item.id !== movie.id);
+        dispatch(setWatchList(updatedWatchList));
+        localStorage.setItem('watchList', JSON.stringify(updatedWatchList));
         dispatch(setWatchCount(watchCount - 1))
       }else{
-        dispatch(setWatchList([...watchList, movie]))
+        const updatedWatchList = [...watchList, movie];
+        dispatch(setWatchList(updatedWatchList))
+        localStorage.setItem('watchList', JSON.stringify(updatedWatchList))
         dispatch(setWatchCount(watchCount +1))
       }
     }
@@ -117,7 +132,7 @@ export function App() {
       <Route element={<MainLayout  searchMovie={searchMovie}/>}>
         <Route path='/'element={<Home  detailMovies={detailMovies} addWatchList={addWatchList} />}/>
         <Route path='/All-movies'element={<AllMovies  detailMovies={detailMovies} addWatchList={addWatchList}/>}/>
-        <Route path='/:id'element={<DetailMovie />}/>
+        <Route path='/:id'element={<DetailMovie/>}/>
         <Route path='/Top-raiting'element={<Topraiting  detailMovies={detailMovies} addWatchList={addWatchList} />}/>
         <Route path='/Watchlist' element={<WatchList  detailMovies={detailMovies} addWatchList={addWatchList}/>}/>
 

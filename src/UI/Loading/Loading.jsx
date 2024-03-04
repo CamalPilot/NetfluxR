@@ -2,8 +2,10 @@ import React from 'react'
 
 const Loading = () => {
   return (
-    <div>Loading....</div>
+    <div>
+      <h2 style={{color: "white"}}>Loading....</h2>
+   </div>
   )
 }
 
-export default Loading
+export default Loading;

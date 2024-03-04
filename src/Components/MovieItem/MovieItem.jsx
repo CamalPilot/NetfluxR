@@ -11,6 +11,8 @@ import { FaPlus } from "react-icons/fa6";
 import Modal from "../../UI/Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { setHover, setOpenModal, setRating, setYourRate } from "../../Redux/movieSlice";
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const MovieItem = ({movie, detailMovies, addWatchList}) => {
 
@@ -19,6 +21,7 @@ const MovieItem = ({movie, detailMovies, addWatchList}) => {
   const {watchList} = useSelector(state => state.movies);
   const {rating} = useSelector(state => state.movies);
   const {hover} = useSelector(state => state.movies)
+  const {isLoading} = useSelector(state => state.movies)
   // const {yourRate} = useSelector(state => state.movies);
   // const {openModal} = useSelector(state => state.movies);
 
@@ -30,19 +33,27 @@ const MovieItem = ({movie, detailMovies, addWatchList}) => {
   const rateHandle = function(){
     setYourRate(rating)
     setOpenModal(false)
+    dispatch(setRating(0))
+    
   }
   
   return (
     <>
         <div className="movie__item">
           <div className="movie__item__img">
-            <Link to={`/${movie?.title}`} onClick={() => detailMovies(movie.id)}>
-            <img src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`} alt="" />
+           {
+            isLoading ? <Skeleton height={250}/> :(
+              <Link to={`/${movie?.title}`} onClick={() => detailMovies(movie.id)}>
+              <img src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`} alt="" />
               
-            </Link>
+              </Link>
+            )
+           }
           </div>
           <div className="movie__item__detail">
-            <div className="movie__item__detail__raiting">
+            {
+              isLoading ? <Skeleton  width={"70%"} height={20}/> : (
+                <div className="movie__item__detail__raiting">
               <span className="movie__item__detail__raiting__stars">
                 <RaitingStar style={{ fill: "gold", cursor: "pointer" }} />
                 {typeof movie?.vote_average === 'number' ? movie?.vote_average.toFixed(1) : ''}
@@ -85,12 +96,18 @@ const MovieItem = ({movie, detailMovies, addWatchList}) => {
                 >Rate</Button>
               </Modal>
             </div>
+              )
+            }
             <div className="movie__item__detail__name">
-              <Link><h4>{movie?.title}</h4></Link>
+              {
+                isLoading ? <Skeleton width={"100%"} count={3} /> : (
+                  <Link><h4>{movie?.title}</h4></Link>
+                )
+              }
             </div>
             <div className="movie__item__detail__watchlist">
               <Button onClick={() => addWatchList(movie)}>
-                {!watchList.includes(movie) ?  <><FaPlus /> Watchlist</> : <><FaCheck /> Watchlist</> }
+                {!watchList.some(item => item.id === movie.id) ?  <><FaPlus /> Watchlist</> : <><FaCheck /> Watchlist</> }
                 
               </Button>
             </div>
