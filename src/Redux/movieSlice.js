@@ -13,6 +13,7 @@ const initialState = {
     // yourRate:0,
     hover:null,
     isLoading: false,
+    upComing: [],
 
 }
 
@@ -56,6 +57,9 @@ export const movieSlice = createSlice({
         },
         setIsLoading(state, action){
             state.isLoading = action.payload
+        },
+        setUpComing(state, action){
+            state.upComing = action.payload
         }
     }
 })
@@ -71,7 +75,8 @@ export const {setMovies,
     setRating,
     setYourRate,
     setHover,
-    setIsLoading
+    setIsLoading,
+    setUpComing
 } = movieSlice.actions 
 
 export default movieSlice.reducer

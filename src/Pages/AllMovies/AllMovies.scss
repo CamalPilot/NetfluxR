@@ -3,7 +3,7 @@
 
 .movies{
     padding-top: 10rem;
-    h2{
+    &__heading{
         color: var(--bs-white);
         margin-bottom: 2rem;
     }

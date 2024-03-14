@@ -22,8 +22,8 @@ const Topraiting = ({detailMovies, addWatchList}) => {
         <h2>Top Rating Movies</h2>
         <div className='rating__movies'>
             {
-                isLoading ? <Loading/> :
-                raitingMovies.map((movie) => (
+        
+              raitingMovies.map((movie) => (
                     <MovieItem key={movie.id} movie={movie} detailMovies = {detailMovies} addWatchList={addWatchList}/>
                 ))
             }

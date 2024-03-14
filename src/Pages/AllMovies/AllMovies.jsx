@@ -15,7 +15,7 @@ const AllMovies = ({detailMovies, addWatchList}) => {
   }, [dispatch]);
   return (
     <div className='movies container'>
-      <h2>All Movies</h2>
+      <h2 className='movies__heading'>All Movies</h2>
       <div className="movies__item">
         {
           allMovies.map(movie =>(

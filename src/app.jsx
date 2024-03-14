@@ -11,7 +11,7 @@ import AllMovies from './Pages/AllMovies/AllMovies'
 import WatchList from './Pages/WatchList/WatchList'
 import { API_URL } from './services/movie'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAllMovies, setIsLoading, setMovies, setRaitingMovies, setSelectItemID, setWatchCount, setWatchList } from './Redux/movieSlice'
+import { setAllMovies, setIsLoading, setMovies, setRaitingMovies, setSelectItemID, setUpComing, setWatchCount, setWatchList } from './Redux/movieSlice'
 
 
 
@@ -56,6 +56,23 @@ export function App() {
     fetchMovies()
   }, [dispatch])
 
+    useEffect(() => {
+      async function upComing (){
+        try{
+          dispatch(setIsLoading(true))
+          const response = await axios.get(`${API_URL}movie/upcoming?api_key=${import.meta.env.VITE_API_KEY}`)
+          // const response = await axios.get(`${API_URL}movie/changes?api_key=${import.meta.env.VITE_API_KEY}`)
+          const allMovies = response.data.results;
+          const randomMovies = getRandomMovies(allMovies, 6)
+          dispatch(setUpComing(randomMovies))
+          dispatch(setIsLoading(false))
+        }catch(error){
+          console.error('Error Upcoming movies', error)
+        }
+      }
+      upComing()
+    },[dispatch])
+    
   
     async function detailMovies(id){
       try{

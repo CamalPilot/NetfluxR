@@ -60,7 +60,7 @@ const MovieItem = ({movie, detailMovies, addWatchList}) => {
                 
               </span>
               <span className="movie__item__detail__raiting__count">
-              <IoIosStarOutline style={{ fill: "#5199EF", cursor: "pointer" }} onClick={() => setOpenModal(!openModal)}/>
+              <IoIosStarOutline className="movie__item__detail__raiting__count__svg" style={{ fill: "#5199EF", cursor: "pointer" }} onClick={() => setOpenModal(!openModal)}/>
               <span style={{color: '#888888'}}>{yourRate}</span>
 
               </span>

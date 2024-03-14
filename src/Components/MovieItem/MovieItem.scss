@@ -6,8 +6,9 @@
     gap: 3rem;
     margin-bottom: 3rem;
     &__item{
-        background: var(--bs-dark);
+        background: var(--bs-item-bg);
         max-width: 18rem;
+        
         
         
 &__img{
@@ -16,6 +17,10 @@
         width: 100%;
         height: 27rem;
     }
+    &:hover{
+        transform: scale(1.05);
+        transition: all .4s;
+    }
 }
 
 &__detail{
@@ -23,6 +28,7 @@
     &__raiting{
         padding-bottom: 1rem;
             display: flex;
+            align-items: center;
             gap: 3rem;
             &__stars{
                 display: flex;
@@ -33,13 +39,26 @@
             }
             &__count{
                 font-size: 1.7rem;
-                color: midnightblue;
+                // color: midnightblue;
                 display: flex;
                 gap: .5rem;
+                cursor: pointer;
+                padding: .7rem;
+                border-radius: .5rem;
+                &:hover{
+                    background: var(--bs-dark);
+                }
+                &__svg{
+                    &:hover{
+                        fill: var(--bs-white) !important;
+
+                    }
+                }
             }
 
             &__modal{
                 position: relative;
+                
                 &__heading{
                     margin-top: 5rem;
                     text-transform: uppercase;
@@ -47,6 +66,8 @@
                 }
                 &__title{
                     margin-top: 1rem;
+                    color: var(--bs-white);
+                    margin-bottom: 2rem;
                 }
                 &__count{
                     position: absolute;
@@ -73,6 +94,7 @@
                     align-items: center;
                     margin-top: 2rem;
                     margin-bottom: 2rem;
+                    
                     
                 }
                 &__stars{
@@ -108,6 +130,9 @@
             width: 16rem;
             height: 3.5rem;
             border-radius: 5px;
+            &:hover{
+                background: #30353C;
+            }
         }
     }
 }

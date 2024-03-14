@@ -8,11 +8,6 @@ import RaitingStar from "../../UI/RaitingStar/RaitingStar";
 import { useSelector } from "react-redux";
 
 
-
-
-
-
-
 export default function SimpleSlider() {
   const {movies} = useSelector(state => state.movies)
   var settings = {
