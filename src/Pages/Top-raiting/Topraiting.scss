@@ -7,9 +7,14 @@
             color: var(--bs-white);
             margin-bottom: 2rem;
         }
+
+    @media (max-width:900px){
+        text-align: center;
+    }
     &__movies{
         display: flex;
         flex-wrap: wrap;
         gap: 2rem;
+        justify-content: center;
     }
 }

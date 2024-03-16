@@ -5,12 +5,19 @@
     display: flex;
     gap: 3rem;
     margin-bottom: 3rem;
+    
     &__item{
         background: var(--bs-item-bg);
         max-width: 18rem;
         
+        // @media (max-width:400px){
+        //     width: 28rem;
+            
+        // }
         
-        
+        @media(max-width:380px){
+            margin-left: 2rem;
+        }
 &__img{
 
     img{
@@ -25,6 +32,12 @@
 
 &__detail{
     padding: 1rem;
+    @media (max-width:400px){
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
     &__raiting{
         padding-bottom: 1rem;
             display: flex;
@@ -74,12 +87,23 @@
                     top: -6rem;
                     left: 17.5rem;
                     
+                    
+                    @media(max-width:600px){
+                        left: 8.5rem;
+                        top: -4rem;
+                    }
+                    
                     span{
                         position: absolute;
                         z-index: 5;
                         top: 4.2rem;
                         left: 4.4rem;
                         font-size: 2.3rem;
+                        @media(max-width:600px){
+                            left: 2.9rem;
+                            top: 2.7rem;
+                            font-size: 2rem;
+                        }
                     }
                 }
                 &__btn{
@@ -141,4 +165,17 @@
 }
 .star{
     cursor: pointer;
+    font-size: 30px;
+    @media(max-width: 900px){
+        font-size: 20px;
+    }
+    @media(max-width: 600px){
+        font-size: 15px;
+    }
+}
+.bigstar{
+    font-size: 10rem;
+    @media(max-width: 600px){
+        font-size: 7rem;
+    }
 }

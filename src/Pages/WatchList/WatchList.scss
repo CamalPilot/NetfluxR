@@ -3,6 +3,9 @@
 
 .watchlist{
     padding-top: 10rem;
+    @media (max-width: 600px){
+        text-align: center;
+    }
 
     &__heading{
         color: var(--bs-white);
@@ -11,5 +14,6 @@
         display: flex;
         gap: 2rem;
         flex-wrap: wrap;
+        justify-content: center;
     }
 }

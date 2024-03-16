@@ -26,6 +26,20 @@
             flex-direction: column;
             border-radius: .8rem;
 
+            @media(max-width:900px){
+                left: 25%;
+            }
+            @media(max-width:600px){
+                width: 24rem;
+                left: 25%;
+            }
+            @media(max-width:415px){
+                left: 20%;
+            }
+            @media(max-width:350px){
+                left: 15%;
+            }
+
             &__close {
                 position: absolute;
                 top: 1rem;

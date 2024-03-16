@@ -67,7 +67,7 @@ const MovieItem = ({movie, detailMovies, addWatchList}) => {
               <Modal className="movie__item__detail__raiting__modal" isOpen={openModal} onClose={() => setOpenModal(false)}>
                 <div className="movie__item__detail__raiting__modal__count" 
                   style={{transform: rating !== 0 ? 'scale(1.5)' : 'none', transition:'all 1s'}}>
-                  <RaitingStar style={{ fill: "#5199EF", cursor: "pointer" , fontSize:'10rem', position:'relative'}}/>
+                  <RaitingStar className="bigstar" style={{ fill: "#5199EF", cursor: "pointer" , position:'relative'}}/>
                   <span>{rating}</span>
                 </div>
                 <h5 className="movie__item__detail__raiting__modal__heading">Rate this</h5>
@@ -80,7 +80,7 @@ const MovieItem = ({movie, detailMovies, addWatchList}) => {
                         <input type="radio" name="rating" value={currentRating} onClick={()=> dispatch(setRating(currentRating))} />
                         <FaStar 
                         className="star"
-                        size={30}
+                        
                         color={currentRating <= (hover || rating) ? '#5199EF' : '#FFF'}
                         onMouseEnter={() => dispatch(setHover(currentRating))}
                         onMouseLeave={() => dispatch(setHover(null))}

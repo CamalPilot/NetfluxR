@@ -16,11 +16,19 @@ const WatchList = ({addWatchList, detailMovies}) => {
   return (
     <div className='watchlist container'>
         <h2 className='watchlist__heading'>Your Watchlist</h2>
-        <div className='watchlist__movies'>
+        {
+          watchList.length > 0 ? 
+          <div className='watchlist__movies'>
             {watchList && watchList.map((movie) => (
-                <MovieItem key={movie.id} movie={movie} rating={movie.rating} detailMovies={detailMovies} addWatchList={addWatchList} watchList={watchList}/>
+              
+                <MovieItem key={movie.id} movie={movie} rating={movie.rating} detailMovies={detailMovies} addWatchList={addWatchList} watchList={watchList}/> 
             ))}
         </div>
+        : 
+        <div>
+          <h2 style={{color: "red", marginTop: "4rem"}}>No Movie Added</h2>
+        </div>
+        }
     </div>
   )
 }

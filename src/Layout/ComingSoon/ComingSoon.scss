@@ -4,8 +4,13 @@
 .upcoming{
     &__movies{
             display: flex;
-            gap: 3rem;
+            gap: 2rem;
             margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+    }
+    @media (max-width:900px){
+        text-align: center;
     }
     &__title{
         
