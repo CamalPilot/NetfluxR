@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./MovieItem.scss";
 import {Link} from  'react-router-dom'
 import RaitingStar from "../../UI/RaitingStar/RaitingStar";
@@ -10,7 +10,7 @@ import Button from "../../UI/Button/Button";
 import { FaPlus } from "react-icons/fa6";
 import Modal from "../../UI/Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { setHover, setOpenModal, setRating, setYourRate } from "../../Redux/movieSlice";
+import { setHover, setIsLoading, setOpenModal, setRating, setYourRate } from "../../Redux/movieSlice";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -25,10 +25,10 @@ const MovieItem = ({movie, detailMovies, addWatchList}) => {
   // const {yourRate} = useSelector(state => state.movies);
   // const {openModal} = useSelector(state => state.movies);
 
-  const [openModal, setOpenModal] = useState(false);
-  const [yourRate, setYourRate] = useState(0)
   // const [rating, setRating] = useState(0)
   // const [hover, setHover] = useState(null)
+  const [openModal, setOpenModal] = useState(false);
+  const [yourRate, setYourRate] = useState(0)
 
   const rateHandle = function(){
     setYourRate(rating)
@@ -36,6 +36,7 @@ const MovieItem = ({movie, detailMovies, addWatchList}) => {
     dispatch(setRating(0))
     
   }
+ 
   
   return (
     <>

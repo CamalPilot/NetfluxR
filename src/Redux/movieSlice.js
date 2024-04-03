@@ -12,7 +12,7 @@ const initialState = {
     rating:0,
     // yourRate:0,
     hover:null,
-    isLoading: false,
+    isLoading: true,
     upComing: [],
 
 }
